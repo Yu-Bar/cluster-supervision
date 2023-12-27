@@ -1,0 +1,25 @@
+server:
+  port: ${cs.port:9090}
+spring:
+  profiles:
+    active: dev
+  data:
+    redis:
+      host: ${cs.redis.host:localhost}
+      port: ${cs.redis.port:localhost}
+      password: ${cs.redis.password:localhost}
+      database: ${cs.redis.database:0}
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    title:
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'web 端'
+      paths-to-match: '/**'
+      packages-to-scan: com.ustc.web.controller
