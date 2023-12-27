@@ -21,8 +21,6 @@
       <el-main><router-view></router-view></el-main>
     </el-container>
   </el-container>
-
-
 </template>
 
 <script>
@@ -60,6 +58,7 @@ export default {
     },
     getMessage: function (msg) {
       console.log(msg.data)
+      this.$store.commit('updateNodeList',JSON.parse(msg.data))
     },
     // 发送消息给被连接的服务端
     send: function (params) {
