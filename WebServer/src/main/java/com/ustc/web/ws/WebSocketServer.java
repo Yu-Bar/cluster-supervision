@@ -3,6 +3,9 @@ package com.ustc.web.ws;
 
 
 
+import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.fastjson.JSON;
+import com.ustc.domain.vo.ClientNodeVO;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -73,6 +77,22 @@ public class WebSocketServer {
             try {
                 //服务器向客户端发送消息
                 session.getBasicRemote().sendText(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 更新节点信息
+     * @param clientNodeVOList
+     */
+    public void updateNodeInfo(List<ClientNodeVO> clientNodeVOList) {
+        Collection<Session> sessions = sessionMap.values();
+        for (Session session : sessions) {
+            try {
+                //服务器向客户端发送消息
+                session.getBasicRemote().sendText(JSON.toJSONString(clientNodeVOList));
             } catch (Exception e) {
                 e.printStackTrace();
             }

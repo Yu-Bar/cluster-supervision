@@ -1,26 +1,30 @@
-package com.ustc.domain.dto;
+package com.ustc.domain.vo;
 /**
  * Author:Yu-Bar
- * Date:2023/12/27-16:25
+ * Date:2023/12/27-22:50
  */
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /**
- *@ClassName ClientNode
- *@Description 用于传输的节点数据
+ *@ClassName NodeVo
+ *@Description 返回给用户的客户端节点数据
  *@Author Yu-Bar
- *@Date 2023/12/27 16:25
+ *@Date 2023/12/27 22:50
  *@Version 1.0
  **/
 @Data
 @Builder
-@Schema(description = "客户机器节点传输模型")
-public class ClientNodeDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(description = "用户查看评论返回的数据格式")
+public class ClientNodeVO {
     @Schema(description = "节点 id")
     private Long id;
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *@ClassName NodeController
@@ -49,14 +50,15 @@ public class NodeController {
     @Operation(description = "测试Redis")
     @PostMapping("/redis")
     public Result testRedis(){
+        Random random = new Random();
         ClientNodeDTO clientNodeDTO = ClientNodeDTO.builder()
-                .id(new Random().nextLong())
-                .address("192.168.0.1:8888")
-                .name("节点1")
-                .status(NodeStatus.OK)
-                .version("1.01")
-                .capacityUsage(20)
-                .capacity("10G")
+                .id(random.nextLong())
+                .address("192.168.0." + random.nextInt(255) + ":" + random.nextInt(65535))
+                .name("节点" + random.nextInt(10000))
+                .status(random.nextInt(4))
+                .version(random.nextInt(50) + ".01")
+                .capacityUsage(random.nextInt(100))
+                .capacity(random.nextInt(100) + "G")
                 .contactTime(LocalDateTime.now())
                 .build();
         Map<String, Object> nodeMap = BeanUtil.beanToMap(clientNodeDTO);
