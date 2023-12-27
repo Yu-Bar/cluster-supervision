@@ -1,23 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'index',
+    component:  () => import('../views/mainview/DashBoardView.vue')  //对应的vue组件
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/dashboard',  //地址hash
+    name: 'dashboard',
+    component:  () => import('../views/mainview/DashBoardView.vue')  //对应的vue组件
+  },
+  {
+    path: '/command',  //地址hash
+    name: 'command',
+    component:  () => import('../views/mainview/CommandView.vue')  //对应的vue组件
+  },
 ]
 
 const router = new VueRouter({
