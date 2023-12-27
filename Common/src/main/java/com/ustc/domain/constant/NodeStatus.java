@@ -20,4 +20,9 @@ public class NodeStatus {
      * 连接重试中
      */
     public static final int RETRY = 2;
+
+    /**
+     * 主动下线
+     */
+    public static final int OFFLINE = 3;
 }
