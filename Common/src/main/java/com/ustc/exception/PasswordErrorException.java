@@ -1,4 +1,4 @@
-package com.ustc.domain.exception;
+package com.ustc.exception;
 
 /**
  * 密码错误异常

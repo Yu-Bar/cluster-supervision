@@ -8,7 +8,10 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.ustc.domain.constant.NodeStatus;
 import com.ustc.domain.dto.ClientNodeDTO;
+import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.result.Result;
+import com.ustc.web.service.CommandService;
+import com.ustc.web.service.NodeService;
 import com.ustc.web.ws.WebSocketServer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -29,6 +33,7 @@ import java.util.Set;
  *@Date 2023/12/27 15:22
  *@Version 1.0
  **/
+@CrossOrigin(origins="*",maxAge=3600)
 @Tag(name = "节点",description = "节点相关接口")
 @RestController
 @RequestMapping("/node")
@@ -39,6 +44,10 @@ public class NodeController {
     WebSocketServer webSocketServer;
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    NodeService nodeService;
+    @Autowired
+    HttpServiceProxyFactory httpServiceProxyFactory;
 
     @Operation(description = "测试websocket")
     @PostMapping("/websocket")
@@ -52,7 +61,7 @@ public class NodeController {
     public Result testRedis(){
         Random random = new Random();
         ClientNodeDTO clientNodeDTO = ClientNodeDTO.builder()
-                .id(random.nextLong())
+                .id(random.nextLong(1,10000))
                 .address("192.168.0." + random.nextInt(255) + ":" + random.nextInt(65535))
                 .name("节点" + random.nextInt(10000))
                 .status(random.nextInt(4))
@@ -66,12 +75,20 @@ public class NodeController {
         return Result.success();
     }
 
-    @Operation(description = "测试Redis")
-    @GetMapping("/redis/{node}")
-    public Result<ClientNodeDTO> testGetRedis(@PathVariable("node") Long nodeId){
-        Map entries = redisTemplate.opsForHash().entries("node::" + nodeId);
-        ClientNodeDTO clientNodeDTO = BeanUtil.mapToBean(entries, ClientNodeDTO.class, true, CopyOptions.create());
-        return Result.success(clientNodeDTO);
+    @Operation(description = "根据 id 获取节点信息")
+    @GetMapping("/{node}")
+    public Result<ClientNodeDetailVO> getNode(@PathVariable("node") Long nodeId){
+        ClientNodeDetailVO nodeDetailVO = nodeService.getClientNodeById(nodeId);
+        log.info("查询节点:{}",nodeDetailVO);
+        return Result.success(nodeDetailVO);
+    }
+
+    @Operation(description = "根据 id 下线节点")
+    @PutMapping("/{node}")
+    public Result offlineNode(@PathVariable("node") Long nodeId){
+        CommandService commandService = httpServiceProxyFactory.createClient(CommandService.class);
+        log.info("下线节点:{}",nodeId);
+        return commandService.offlineNode(nodeId);
     }
 
 }

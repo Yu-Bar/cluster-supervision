@@ -6,10 +6,12 @@ spring:
   data:
     redis:
       host: ${cs.redis.host:localhost}
-      port: ${cs.redis.port:localhost}
-      password: ${cs.redis.password:localhost}
+      port: ${cs.redis.port:6379}
+      password: ${cs.redis.password:123}
       database: ${cs.redis.database:0}
-
+cs:
+  socket:
+    host: ${cs.socket.host}
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  *@ClassName ClientNode
- *@Description 用于传输的节点数据
+ *@Description 用于传输的节点数据（初次连接需要记录的信息）
  *@Author Yu-Bar
  *@Date 2023/12/27 16:25
  *@Version 1.0
@@ -33,11 +33,23 @@ public class ClientNodeDTO {
     @Schema(description = "上次活跃时间")
     private LocalDateTime contactTime;
 
-    @Schema(description = "已使用容量百分比")
-    private int capacityUsage;
+    @Schema(description = "磁盘已使用容量百分比")
+    private Integer capacityUsage;
 
-    @Schema(description = "总容量")
+    @Schema(description = "磁盘总容量")
     private String capacity;
+
+    @Schema(description = "内存已使用容量百分比")
+    private Integer memUsage;
+
+    @Schema(description = "内存总容量")
+    private String mem;
+
+    @Schema(description = "CPU 核数")
+    private Integer procNum;
+
+    @Schema(description = "CPU 载荷百分比")
+    private Integer CPULoad;
 
     @Schema(description = "版本号")
     private String version;

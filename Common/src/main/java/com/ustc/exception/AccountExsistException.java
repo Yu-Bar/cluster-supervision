@@ -1,4 +1,4 @@
-package com.ustc.domain.exception;
+package com.ustc.exception;
 
 /**
  * 账号不存在异常

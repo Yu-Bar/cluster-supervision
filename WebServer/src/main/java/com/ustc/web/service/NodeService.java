@@ -1,5 +1,6 @@
 package com.ustc.web.service;
 
+import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.domain.vo.ClientNodeVO;
 
 import java.util.List;
@@ -16,5 +17,12 @@ public interface NodeService {
      * @return
      */
     List<ClientNodeVO> getClientNodeList();
+
+    /**
+     * 通过 id 获取指定节点信息
+     * @param id
+     * @return
+     */
+    ClientNodeDetailVO getClientNodeById(Long id);
 
 }

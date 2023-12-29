@@ -1,4 +1,4 @@
-package com.ustc.domain.exception;
+package com.ustc.exception;
 
 public class UserNotLoginException extends BaseException {
 

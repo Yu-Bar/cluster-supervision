@@ -1,4 +1,4 @@
-package com.ustc.domain.exception;
+package com.ustc.exception;
 
 /**
  * 账号被锁定异常

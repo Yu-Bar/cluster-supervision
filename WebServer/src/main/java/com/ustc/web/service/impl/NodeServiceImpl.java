@@ -7,6 +7,7 @@ package com.ustc.web.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.ustc.domain.dto.ClientNodeDTO;
+import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.domain.vo.ClientNodeVO;
 import com.ustc.result.Result;
 import com.ustc.web.service.NodeService;
@@ -41,5 +42,17 @@ public class NodeServiceImpl implements NodeService {
             clientNodeVOList.add(clientNodeVO);
         }
         return clientNodeVOList;
+    }
+
+    /**
+     * 通过 id 获取指定节点信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ClientNodeDetailVO getClientNodeById(Long id) {
+        Map entries = redisTemplate.opsForHash().entries("node::" + id);
+        ClientNodeDetailVO clientNodeDetailVO = BeanUtil.mapToBean(entries, ClientNodeDetailVO.class, true, CopyOptions.create());
+        return clientNodeDetailVO;
     }
 }
