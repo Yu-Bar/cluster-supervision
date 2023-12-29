@@ -2,6 +2,7 @@ package com.ustc.web.service;
 
 import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.domain.vo.ClientNodeVO;
+import com.ustc.result.Result;
 
 import java.util.List;
 
@@ -25,4 +26,16 @@ public interface NodeService {
      */
     ClientNodeDetailVO getClientNodeById(Long id);
 
+    /**
+     * 通过 id 删除节点
+     * @param id
+     * @return
+     */
+    Boolean deleteClientNodeById(Long id);
+
+    /**
+     * 根据 id 下线节点
+     * @param nodeId
+     */
+    Result offlineNodeById(Long nodeId);
 }

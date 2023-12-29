@@ -5,8 +5,6 @@ package com.ustc.web.controller;
  */
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
-import com.ustc.domain.constant.NodeStatus;
 import com.ustc.domain.dto.ClientNodeDTO;
 import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.result.Result;
@@ -24,7 +22,6 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *@ClassName NodeController
@@ -46,8 +43,7 @@ public class NodeController {
     RedisTemplate redisTemplate;
     @Autowired
     NodeService nodeService;
-    @Autowired
-    HttpServiceProxyFactory httpServiceProxyFactory;
+
 
     @Operation(description = "测试websocket")
     @PostMapping("/websocket")
@@ -86,9 +82,16 @@ public class NodeController {
     @Operation(description = "根据 id 下线节点")
     @PutMapping("/{node}")
     public Result offlineNode(@PathVariable("node") Long nodeId){
-        CommandService commandService = httpServiceProxyFactory.createClient(CommandService.class);
         log.info("下线节点:{}",nodeId);
-        return commandService.offlineNode(nodeId);
+        return nodeService.offlineNodeById(nodeId);
+    }
+
+    @Operation(description = "根据 id 删除节点")
+    @DeleteMapping("/{node}")
+    public Result deleteNode(@PathVariable("node") Long nodeId){
+        log.info("删除节点:{}",nodeId);
+        nodeService.deleteClientNodeById(nodeId);
+        return Result.success();
     }
 
 }

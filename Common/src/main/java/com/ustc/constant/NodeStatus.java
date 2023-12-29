@@ -1,4 +1,4 @@
-package com.ustc.domain.constant;
+package com.ustc.constant;
 
 /**
  * Author:Yu-Bar
