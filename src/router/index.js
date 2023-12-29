@@ -6,8 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'index',
-    component:  () => import('../views/mainview/DashBoardView.vue')  //对应的vue组件
+    redirect: '/dashboard' //重定向
   },
   {
     path: '/dashboard',  //地址hash
@@ -18,6 +17,11 @@ const routes = [
     path: '/command',  //地址hash
     name: 'command',
     component:  () => import('../views/mainview/CommandView.vue')  //对应的vue组件
+  },
+  {
+    path: '/detail/:id',  //地址hash
+    name: 'detail',
+    component:  () => import('../views/mainview/NodeDetailView.vue')  //对应的vue组件
   },
 ]
 

@@ -10,7 +10,7 @@
         width="180">
       <template v-slot="{ row }">
         <div class="table-item-wrapper">
-          <span>{{ row.name }}</span>
+          <router-link :to="/detail/+row.id" class="router-link">{{ row.name }}</router-link>
           <span class="icon-image">
             <img v-if="row.status == 0" src="@/static/img/wrong.png" alt="连接断开">
             <img v-else-if="row.status == 1" src="@/static/img/ok.png" alt="已连接">
@@ -57,43 +57,19 @@
         label="操作"
         align="center">
       <template v-slot="{ row }">
-        <el-button v-if="row.status == 1 || row.status == 2" type="info" icon="el-icon-bottom" circle></el-button>
-        <el-button v-else type="danger" icon="el-icon-delete" circle></el-button>
+        <el-button v-if="row.status == 1 || row.status == 2" type="info" icon="el-icon-bottom" circle @click="offlineNode(row)"></el-button>
+        <el-button v-else type="danger" icon="el-icon-delete" circle @click="deleteNode(row)"></el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+import {deleteNodeById, offlineNodeById} from "@/service/NodeApi";
+
 export default {
   data() {
     return {
-      tableData: [{
-        name: '节点1',
-        address: '192.168.1.11:9866',
-        contactTime: '2s',
-        capacityUsage: 10,
-        capacity: "100G",
-        version: '1.01',
-        status: 0
-      },
-        {
-          name: '节点2',
-          address: '192.168.1.11:9866',
-          contactTime: '2s',
-          capacityUsage: 30,
-          capacity: "10G",
-          version: '1.01',
-          status: 1
-        }, {
-          name: '节点3',
-          address: '192.168.1.11:9866',
-          contactTime: '2s',
-          capacityUsage: 50,
-          capacity: "20G",
-          version: '1.01',
-          status: 2
-        }]
     }
   },
   computed: {
@@ -106,6 +82,39 @@ export default {
       }
     },
   },
+  methods: {
+    offlineNode(node) {
+      this.$confirm(`确认要下线机器？${node.name}`, '下线节点', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '下线',
+        cancelButtonText: '取消'
+      }).then(async () => {
+          const res = await offlineNodeById(node.id);
+          if(res.code == 1){
+            node.status = 3
+            this.$message({
+              type: 'success',
+              message: '成功下线节点'
+            })
+          }
+        });
+    },
+    async deleteNode(node) {
+      this.$confirm(`确认要删除机器？${node.name}`, '删除节点', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '删除',
+        cancelButtonText: '取消'
+      }).then(async () => {
+        const res = await deleteNodeById(node.id);
+        if(res.code == 1){
+          this.$message({
+            type: 'success',
+            message: '成功删除节点'
+          })
+        }
+      });
+    }
+  }
 }
 </script>
 
@@ -125,6 +134,16 @@ export default {
   margin-top: 10px;
   margin-left: 10px;
   width: 20px;
+}
+
+/* 覆盖默认的 router-link 样式 */
+.router-link {
+  color: inherit; /* 使用父级颜色 */
+  text-decoration: none; /* 去掉下划线 */
+}
+
+.router-link:hover {
+  text-decoration: underline; /* 鼠标悬停时显示下划线 */
 }
 
 </style>

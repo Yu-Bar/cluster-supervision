@@ -57,7 +57,7 @@ export default {
       console.log("连接错误")
     },
     getMessage: function (msg) {
-      console.log(msg.data)
+      // console.log(msg.data)
       this.$store.commit('updateNodeList',JSON.parse(msg.data))
     },
     // 发送消息给被连接的服务端
