@@ -1,9 +1,6 @@
 <template>
-
-  <el-descriptions class="margin-top" title="节点信息" :column="3" border>
-    <template slot="extra">
-      <el-button type="primary" size="small">操作</el-button>
-    </template>
+  <div>
+  <el-descriptions title="节点信息" :column="3" border>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-user"></i>
@@ -44,14 +41,25 @@
       </template>
       {{nodeInfo.version}}
     </el-descriptions-item>
+
   </el-descriptions>
+    <div class="pie-chart-container">
+      <PieChart :title="`CPU利用率(` + nodeInfo.procNum + `核)`" :percent="nodeInfo.cpuLoad"></PieChart>
+      <PieChart :title="`磁盘使用率(总量:` + nodeInfo.capacityUsage + `GB)`" :percent="nodeInfo.capacityUsage"></PieChart>
+      <PieChart :title="`内存使用率(总量:` + nodeInfo.memUsage + `MB)`" :percent="nodeInfo.memUsage"></PieChart>
+    </div>
+  </div>
 </template>
 
 <script>
 
 import {getNodeById} from "@/service/NodeApi";
+import PieChart from "@/components/PieChart.vue"
 
 export default {
+  components: {
+    PieChart
+  },
   data () {
     return {
       nodeInfo: ''
@@ -71,3 +79,12 @@ export default {
   }
 }
 </script>
+
+<style>
+
+.pie-chart-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between; /* 或者使用其他适合的 justify-content 属性 */
+}
+</style>
