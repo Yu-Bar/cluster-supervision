@@ -49,7 +49,7 @@ public class ClientNodeDTO {
     private Integer procNum;
 
     @Schema(description = "CPU 载荷百分比")
-    private Integer CPULoad;
+    private Integer cpuLoad;
 
     @Schema(description = "版本号")
     private String version;

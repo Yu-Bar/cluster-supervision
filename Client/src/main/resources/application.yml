@@ -1,0 +1,5 @@
+server:
+  port: 9898
+sc:
+  socket:
+    url: ws://localhost:7777/ws/

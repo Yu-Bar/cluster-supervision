@@ -33,3 +33,4 @@ build/
 .vscode/
 
 WebServer/src/main/resources/application-dev.yml
+SocketServer/src/main/resources/application-dev.yml

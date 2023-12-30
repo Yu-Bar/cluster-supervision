@@ -8,7 +8,6 @@ import cn.hutool.core.bean.BeanUtil;
 import com.ustc.domain.dto.ClientNodeDTO;
 import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.result.Result;
-import com.ustc.web.service.CommandService;
 import com.ustc.web.service.NodeService;
 import com.ustc.web.ws.WebSocketServer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import java.time.LocalDateTime;
 import java.util.Map;

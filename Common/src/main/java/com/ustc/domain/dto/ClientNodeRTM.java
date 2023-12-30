@@ -5,7 +5,11 @@ package com.ustc.domain.dto;
  */
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,9 +19,9 @@ import java.time.LocalDateTime;
  *@Date 2023/12/29 11:52
  *@Version 1.0
  **/
-public class ClientNodeRTM {
-    @Schema(description = "节点 id")
-    private Long id;
+@Data
+@Builder
+public class ClientNodeRTM implements Serializable {
 
     @Schema(description = "上次活跃时间")
     private LocalDateTime contactTime;
@@ -25,12 +29,21 @@ public class ClientNodeRTM {
     @Schema(description = "磁盘已使用容量百分比")
     private Integer capacityUsage;
 
+    @Schema(description = "磁盘总容量")
+    private String capacity;
+
     @Schema(description = "内存已使用容量百分比")
     private Integer memUsage;
 
-    @Schema(description = "CPU 载荷百分比")
-    private Integer CPULoad;
+    @Schema(description = "内存总容量")
+    private String mem;
 
-    @Schema(description = "状态")
-    private int status;
+    @Schema(description = "CPU 核数")
+    private Integer procNum;
+
+    @Schema(description = "CPU 载荷百分比")
+    private Integer cpuLoad;
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 }
