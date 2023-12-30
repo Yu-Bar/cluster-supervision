@@ -35,7 +35,7 @@ public class CommandController {
     public Result offlineNode(@PathVariable("id") Long nodeId){
         // 执行下线节点的相关操作
         log.info("下线节点:{}",nodeId);
-        nodeService.sendMessage();
+        nodeService.offlineClientById(nodeId);
         // 下线节点成功返回Result.success()，失败则返回Result.error()
         return Result.success();
     }

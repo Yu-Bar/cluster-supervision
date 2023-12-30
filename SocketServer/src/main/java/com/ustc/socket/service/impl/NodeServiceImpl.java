@@ -4,10 +4,14 @@ package com.ustc.socket.service.impl;
  * Date:2023/12/30-13:29
  */
 
+import com.ustc.command.Command;
+import com.ustc.command.CommandType;
 import com.ustc.socket.service.NodeService;
 import com.ustc.socket.ws.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  *@ClassName NodeServiceImpl
@@ -21,8 +25,18 @@ public class NodeServiceImpl implements NodeService {
     @Autowired
     WebSocketServer webSocketServer;
 
+    /**
+     * 下线节点
+     * @param nodeId
+     */
     @Override
-    public void sendMessage() {
-        webSocketServer.sendToAllClient("socket server的消息");
+    public void offlineClientById(Long nodeId) {
+        Command<Object> command = new Command<>();
+        command.setCommandType(CommandType.OFFLINE);
+        try {
+            webSocketServer.sendCommand(nodeId,command);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

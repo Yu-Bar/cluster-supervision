@@ -5,6 +5,8 @@ package com.ustc.socket.ws;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
+import com.ustc.command.Command;
+import com.ustc.command.CommandType;
 import com.ustc.constant.NodeStatus;
 import com.ustc.domain.dto.ClientNodeDTO;
 import com.ustc.domain.dto.ClientNodeRTM;
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,7 +65,7 @@ public class WebSocketServer {
         ClientNodeDTO clientNodeDTO = ClientNodeDTO.builder()
                 .id(clientId)
                 .address(address[0] + ":" + address[1])
-                .name(address[0] + ":" + address[1])
+                .name("客户机节点" + clientId)
                 .status(NodeStatus.OK)
                 .version("1.01")
                 .contactTime(LocalDateTime.now())
@@ -96,27 +99,24 @@ public class WebSocketServer {
     public void onClose(@PathParam("sid") String sid) {
         System.out.println("连接断开:" + sid);
         Long clientId = clientIdMap.get(sid);
-        redisTemplate.opsForHash().put("node::" + clientId, "status", NodeStatus.WRONG);
-        sessionMap.remove(clientId);
+        if(sessionMap.containsKey(clientId)){
+            redisTemplate.opsForHash().put("node::" + clientId, "status", NodeStatus.WRONG);
+            sessionMap.remove(clientId);
+        }
         clientIdMap.remove(sid);
     }
 
     /**
-     * 群发
-     *
-     * @param message
+     * 向指定客户机发命令
+     * @param clientId
+     * @param command
      */
-    public void sendToAllClient(String message) {
-        log.info("群发消息:{}",message);
-        Collection<Session> sessions = sessionMap.values();
-        for (Session session : sessions) {
-            try {
-                //服务器向客户端发送消息
-                session.getBasicRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void sendCommand(Long clientId,Command command) throws IOException {
+        Session session = sessionMap.get(clientId);
+        if(command.getCommandType().equals(CommandType.OFFLINE)){
+            sessionMap.remove(clientId);
         }
+        session.getBasicRemote().sendText(JSON.toJSONString(command));
     }
 
 }

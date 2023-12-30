@@ -5,12 +5,15 @@ package com.ustc.client.ws;
  */
 
 import com.alibaba.fastjson.JSON;
+import com.ustc.client.command.CommandExecutor;
+import com.ustc.command.Command;
 import com.ustc.domain.dto.ClientNodeRTM;
 import jakarta.websocket.ClientEndpoint;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -28,6 +31,14 @@ import java.io.IOException;
 public class SocketClient {
 
     private static Session serverSession;
+
+    private static CommandExecutor commandExecutor;
+
+    @Autowired
+    public void setCommandExecutor(CommandExecutor commandExecutor){
+        SocketClient.commandExecutor = commandExecutor;
+    }
+
     @OnOpen
     public void onOpen(Session session) {
         System.out.println("Connected to server");
@@ -38,6 +49,15 @@ public class SocketClient {
     public void onMessage(String message, Session session) {
         System.out.println("Received message: " + message);
         // 处理接收到的消息
+        Command command = JSON.parseObject(message, Command.class);
+        switch (command.getCommandType()){
+            case OFFLINE -> {
+                commandExecutor.stopSpringBootApplication();
+            }
+            default -> {
+                log.info("无效命令");
+            }
+        }
     }
 
     public void sendPing(ClientNodeRTM clientNodeRTM) throws IOException {

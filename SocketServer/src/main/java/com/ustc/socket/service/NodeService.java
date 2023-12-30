@@ -12,5 +12,10 @@ package com.ustc.socket.service;
  *@Version 1.0
  **/
 public interface NodeService {
-    void sendMessage();
+
+    /**
+     * 下线节点
+     * @param nodeId
+     */
+    void offlineClientById(Long nodeId);
 }
