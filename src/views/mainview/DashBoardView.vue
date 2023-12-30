@@ -70,6 +70,8 @@ import {deleteNodeById, offlineNodeById} from "@/service/NodeApi";
 export default {
   data() {
     return {
+      path: 'ws://localhost:9090/ws/',
+      socket: ''
     }
   },
   computed: {
@@ -97,7 +99,9 @@ export default {
               message: '成功下线节点'
             })
           }
-        });
+        }).catch(action => {
+        console.log(action)
+      });
     },
     async deleteNode(node) {
       this.$confirm(`确认要删除机器？${node.name}`, '删除节点', {
@@ -112,9 +116,56 @@ export default {
             message: '成功删除节点'
           })
         }
+      }).catch(action => {
+        console.log(action)
       });
+    },
+    initWebSocket: function () {
+      console.log('初始化websocket')
+      if(typeof(WebSocket) === "undefined"){
+        alert("您的浏览器不支持socket")
+      }else{
+        if(this.$store.state.token){
+          // 实例化socket
+          this.socket = new WebSocket(this.path + this.$store.state.userId)
+          // 监听socket连接
+          this.socket.onopen = this.open
+          // 监听socket错误信息
+          this.socket.onerror = this.error
+          // 监听socket消息
+          this.socket.onmessage = this.getMessage
+        }
+      }
+    },
+    open: function () {
+      console.log("socket连接成功")
+    },
+    error: function () {
+      console.log("连接错误")
+    },
+    getMessage: function (msg) {
+      // console.log(msg.data)
+      this.$store.commit('updateNodeList',JSON.parse(msg.data))
+    },
+    // 发送消息给被连接的服务端
+    send: function (params) {
+      this.socket.send(params)
+    },
+    close: function () {
+      console.log("socket已经关闭")
     }
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    // 在组件被路由导航到之前执行的逻辑
+    // 这个函数没有访问组件实例的 this，所以无法直接调用组件方法
+    // 如果你需要访问组件实例，可以通过回调的方式实现
+    next(vm => {
+      // 在组件实例创建之后，可以访问组件的方法和属性
+      if(vm.socket == '' || vm.socket == null){
+        vm.initWebSocket(); // 调用组件的 init 方法
+      }
+    });
+  },
 }
 </script>
 

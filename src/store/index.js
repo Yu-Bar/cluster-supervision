@@ -5,11 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // 存储节点状态
     nodeList: [{
       name: 'Welcome!',
       address: 'Yu-Bar',
       contactTime: 'Distribute',
-      capacityUsage: 520,
+      capacityUsage: 50,
       capacity: "Supervision",
       version: 'System',
       status: 1,
@@ -17,7 +18,10 @@ export default new Vuex.Store({
       mem: '',
       procNum: 0,
       cpuLoad: 0,
-    }]// 存储节点状态
+    }],
+    // 令牌
+    token: null,
+    userId: null
   },
   getters: {
   },
@@ -25,6 +29,12 @@ export default new Vuex.Store({
     updateNodeList(state, data) {
       state.nodeList = data;
     },
+    setToken(state, token) {
+      state.token = token;
+    },
+    setUserId(state, userId) {
+      state.userId = userId;
+    }
   },
   actions: {
   },

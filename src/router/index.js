@@ -6,22 +6,27 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/dashboard' //重定向
+    redirect: '/login', //重定向
   },
   {
     path: '/dashboard',  //地址hash
     name: 'dashboard',
-    component:  () => import('../views/mainview/DashBoardView.vue')  //对应的vue组件
+    component:  () => import('../views/mainview/DashBoardView.vue'),  //对应的vue组件
   },
   {
     path: '/command',  //地址hash
     name: 'command',
-    component:  () => import('../views/mainview/CommandView.vue')  //对应的vue组件
+    component:  () => import('../views/mainview/CommandView.vue'),  //对应的vue组件
   },
   {
     path: '/detail/:id',  //地址hash
     name: 'detail',
-    component:  () => import('../views/mainview/NodeDetailView.vue')  //对应的vue组件
+    component:  () => import('../views/mainview/NodeDetailView.vue'),  //对应的vue组件
+  },
+  {
+    path: '/login',  //地址hash
+    name: 'login',
+    component:  () => import('../views/index/LoginPage.vue'),  //对应的vue组件
   },
 ]
 
