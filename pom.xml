@@ -25,6 +25,8 @@
         <knife4j>4.3.0</knife4j>
         <hutool>5.8.22</hutool>
         <fastjson>2.0.1</fastjson>
+        <jjwt>0.9.1</jjwt>
+        <javax.xml.bind>2.4.0-b180830.0359</javax.xml.bind>
     </properties>
     <dependencies>
         <dependency>
@@ -69,6 +71,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <!--        jwt-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt}</version>
+        </dependency>
+        <!--       高版本springboot使用 jwt-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${javax.xml.bind}</version>
         </dependency>
     </dependencies>
 

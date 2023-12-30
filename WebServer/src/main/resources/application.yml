@@ -12,6 +12,10 @@ spring:
 cs:
   socket:
     host: ${cs.socket.host}
+  jwt:
+    user-secret-key: user
+    user-ttl: 720000000
+    user-token-name: authentication
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:
