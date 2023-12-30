@@ -33,10 +33,6 @@ public class NodeServiceImpl implements NodeService {
     public void offlineClientById(Long nodeId) {
         Command<Object> command = new Command<>();
         command.setCommandType(CommandType.OFFLINE);
-        try {
-            webSocketServer.sendCommand(nodeId,command);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        webSocketServer.sendCommand(nodeId,command);
     }
 }
