@@ -84,7 +84,7 @@
 
 使用 JWT 令牌机制来实现权限校验
 
-![登陆](D:\Innovation\JavaProject\ClusterSupervision\doc\img\登陆.png)
+![登陆](doc\img\登陆.png)
 
 
 
@@ -98,16 +98,16 @@
 
 - 节点名称
 - 节点状态
-  - 正常节点 <img src="D:\Innovation\JavaProject\ClusterSupervision\doc\img\ok.png" alt="ok" style="width:3%;" />
-  - 主动下线节点 <img src="D:\Innovation\JavaProject\ClusterSupervision\doc\img\offline.png" alt="ok" style="width:3%;" />
-  - 异常节点 <img src="D:\Innovation\JavaProject\ClusterSupervision\doc\img\wrong.png" alt="ok" style="width:3%;" />
-  - 重连节点 <img src="D:\Innovation\JavaProject\ClusterSupervision\doc\img\retry.png" alt="ok" style="width:3%;" />
+  - 正常节点 <img src="doc\img\ok.png" alt="ok" style="width:3%;" />
+  - 主动下线节点 <img src="doc\img\offline.png" alt="ok" style="width:3%;" />
+  - 异常节点 <img src="doc\img\wrong.png" alt="ok" style="width:3%;" />
+  - 重连节点 <img src="doc\img\retry.png" alt="ok" style="width:3%;" />
 - 节点地址
 - 上次活跃时间
 - 磁盘使用率/磁盘总容量
 - 版本号
 
-![控制面板](D:\Innovation\JavaProject\ClusterSupervision\doc\img\控制面板.png)
+![控制面板](doc\img\控制面板.png)
 
 
 
@@ -124,7 +124,7 @@
 - 磁盘使用率/磁盘总容量
 - 内存使用率/内存总容量
 
-![节点详细信息查看](D:\Innovation\JavaProject\ClusterSupervision\doc\img\节点详细信息查看.png)
+![节点详细信息查看](doc\img\节点详细信息查看.png)
 
 
 
@@ -132,7 +132,7 @@
 
 可以在节点详细信息页对节点进行配置，目前只支持修改节点名称
 
-![配置节点信息](D:\Innovation\JavaProject\ClusterSupervision\doc\img\配置节点信息.png)
+![配置节点信息](doc\img\配置节点信息.png)
 
 
 
@@ -142,9 +142,9 @@
 
 在控制面板下可以下线**在线节点**和**重连节点** 
 
-![下线节点1](D:\Innovation\JavaProject\ClusterSupervision\doc\img\下线节点1.png)
+![下线节点1](doc\img\下线节点1.png)
 
-![下线节点2](D:\Innovation\JavaProject\ClusterSupervision\doc\img\下线节点2.png)
+![下线节点2](doc\img\下线节点2.png)
 
 
 
@@ -152,6 +152,6 @@
 
 在控制面板下可以删除**异常节点**和**主动下线节点** 
 
-![下线节点1](D:\Innovation\JavaProject\ClusterSupervision\doc\img\删除节点1.png)
+![下线节点1](doc\img\删除节点1.png)
 
-![下线节点2](D:\Innovation\JavaProject\ClusterSupervision\doc\img\删除节点2.png)
+![下线节点2](doc\img\删除节点2.png)
