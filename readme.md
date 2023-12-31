@@ -98,10 +98,10 @@
 
 - 节点名称
 - 节点状态
-  - 正常节点 <img src="doc/img/ok.png" alt="ok" style="width:25px;" />
-  - 主动下线节点 <img src="doc/img/offline.png" alt="ok" style="width:25px;" />
-  - 异常节点 <img src="doc/img/wrong.png" alt="ok" style="width:25px;" />
-  - 重连节点 <img src="doc/img/retry.png" alt="ok" style="width:25px;" />
+  - 正常节点 <img src="doc/img/ok.png" alt="ok" style="width:15px;" />
+  - 主动下线节点 <img src="doc/img/offline.png" alt="ok" style="width:15px;" />
+  - 异常节点 <img src="doc/img/wrong.png" alt="ok" style="width:15px;" />
+  - 重连节点 <img src="doc/img/retry.png" alt="ok" style="width:15px;" />
 - 节点地址
 - 上次活跃时间
 - 磁盘使用率/磁盘总容量
