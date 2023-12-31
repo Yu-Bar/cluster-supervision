@@ -13,7 +13,11 @@
         <i class="el-icon-mobile-phone"></i>
         节点名称
       </template>
-      {{nodeInfo.name}}
+      <span style="display: flex">
+        <el-input v-model="nodeInfo.name" :disabled="!modifyName" style="width: 200px"></el-input>
+        <el-button v-if="!modifyName" type="primary" round style="margin-left: 20px" @click="changeName">修改</el-button>
+        <el-button v-else type="primary" round style="margin-left: 20px" @click="sendName">保存</el-button>
+      </span>
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
@@ -53,7 +57,7 @@
 
 <script>
 
-import {getNodeById} from "@/service/NodeApi";
+import {changeNodeNameById, getNodeById} from "@/service/NodeApi";
 import PieChart from "@/components/PieChart.vue"
 
 export default {
@@ -62,7 +66,8 @@ export default {
   },
   data () {
     return {
-      nodeInfo: ''
+      nodeInfo: '',
+      modifyName: false
     };
   },
   methods: {
@@ -71,6 +76,24 @@ export default {
       // console.log(res)
       if (res.code == 1) {
         this.nodeInfo = res.data
+      }
+    },
+    changeName() {
+      this.modifyName = true;
+    },
+    async sendName() {
+      const res = await changeNodeNameById(this.nodeInfo.id,this.nodeInfo.name);
+      if(res.code == 1){
+        this.modifyName = false;
+        this.$message({
+          type: 'success',
+          message: '修改成功'
+        })
+      }else {
+        this.$message({
+          type: 'error',
+          message: '修改失败'
+        })
       }
     }
   },

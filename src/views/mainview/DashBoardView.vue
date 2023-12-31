@@ -165,7 +165,7 @@ export default {
         vm.initWebSocket(); // 调用组件的 init 方法
       }
     });
-  },
+  }
 }
 </script>
 

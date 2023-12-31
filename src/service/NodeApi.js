@@ -20,3 +20,14 @@ export const deleteNodeById = (id) => {
         url: `/node/${id}`
     })
 }
+
+export const changeNodeNameById = (id,name) => {
+    return http({
+        method:'PUT',
+        url: `/node`,
+        data: {
+            id: id,
+            name: name
+        }
+    })
+}
