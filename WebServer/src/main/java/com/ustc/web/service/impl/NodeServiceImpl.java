@@ -9,6 +9,7 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import com.ustc.constant.MessageConstant;
 import com.ustc.constant.NodeStatus;
 import com.ustc.domain.dto.ClientNodeDTO;
+import com.ustc.domain.dto.ClientNodeModifyDTO;
 import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.domain.vo.ClientNodeVO;
 import com.ustc.exception.NodeOperationException;
@@ -95,5 +96,17 @@ public class NodeServiceImpl implements NodeService {
             redisTemplate.opsForHash().put("node::" + nodeId, "status", NodeStatus.OFFLINE);
         }
         return result;
+    }
+
+    /**
+     * 根据 id 修改节点
+     * @param clientNodeModifyDTO
+     */
+    @Override
+    public void modifyNodeById(ClientNodeModifyDTO clientNodeModifyDTO) {
+        Map<String, Object> map = BeanUtil.beanToMap(clientNodeModifyDTO);
+        if(!redisTemplate.hasKey("node::" + clientNodeModifyDTO.getId()))
+            throw new NodeOperationException(MessageConstant.NODE_NOT_EXIST);
+        redisTemplate.opsForHash().putAll("node::" + clientNodeModifyDTO.getId(), map);
     }
 }

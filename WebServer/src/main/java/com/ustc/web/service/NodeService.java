@@ -1,5 +1,6 @@
 package com.ustc.web.service;
 
+import com.ustc.domain.dto.ClientNodeModifyDTO;
 import com.ustc.domain.vo.ClientNodeDetailVO;
 import com.ustc.domain.vo.ClientNodeVO;
 import com.ustc.result.Result;
@@ -38,4 +39,10 @@ public interface NodeService {
      * @param nodeId
      */
     Result offlineNodeById(Long nodeId);
+
+    /**
+     * 根据 id 修改节点
+     * @param clientNodeModifyDTO
+     */
+    void modifyNodeById(ClientNodeModifyDTO clientNodeModifyDTO);
 }
